@@ -28,14 +28,14 @@ module WpCache
       Rails.logger.info("[WpConnector] SCHEDULED by #{self.class}" + extra_info)
 
       if delay > 0
-        WpApiJob.set(wait: delay.seconds).perform_later(self, wp_id, preview)
+        WpApiJob.set(wait: delay.seconds).perform_later(self.name, wp_id, preview)
       else
-        WpApiJob.perform_later(self, wp_id, preview)
+        WpApiJob.perform_later(self.name, wp_id, preview)
       end
     end
 
     def schedule_update_options
-      WpApiJob.perform_later(self)
+      WpApiJob.perform_later(self.name)
     end
 
     #
